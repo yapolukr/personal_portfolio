@@ -4,19 +4,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <meta charset="UTF-8">
     <title>Blog</title>
-    <div class="container text-center">
-    <h1>Blog</h1>
-    <p>Yana has written {{ blogs.count }} blog{{ blogs.count|pluralize }}</p>
-    </div>
-    <div class="container text-left">
-    {% for blog in blogs %}
-   <a href="{% url 'blog:detail' blog.id %}"> <h4> {{ blog.title }}</h4></a>
-    <h5>{{ blog.date|date:'M d Y'|upper }}</h5>
-    <p> {{ blog.description|truncatechars:100 }}</p>
-    {% endfor %}
-    </div>
+
 </head>
 <body>
+{% extends "portfolio/base.html" %}
 
+{% load static %}
+
+{% block content %}
+
+<h1 id="blogtitle" class="font-weight-bold text-center">Cover letter</h1>
+
+<h3 class="text-center mb-5"><!--Yana has written {{ blogs.count }} blog{{ blogs.count|pluralize }}--></h3>
+
+{% for blog in blogs %}
+<div class="row justify-content-center my-3">
+  <div class="col-md-10">
+    <a href="{% url 'blog:detail' blog.id %}">
+      <h2>{{ blog.title }}</h2>
+    </a>
+    <h5 class="text-muted">{{ blog.date|date:'M d Y'|upper }}</h5>
+    <h4>{{ blog.description|striptags|truncatechars:100 }}</h4>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
 </body>
 </html>
